@@ -115,7 +115,7 @@ Zine Collective | International Marketing
 </div>
 
 @endsection
-@section('myscript')
+@section('script')
 <script>
   $(document).ready(function() {
     $('#customertable').DataTable();

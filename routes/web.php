@@ -17,14 +17,12 @@ use PhpParser\Node\Expr\FuncCall;
 |
 */
 
-Route::resource('/Appointment', 'AppointmentController');
+Route::resource('appointments', 'AppointmentController');
 Route::resource('/customer', 'CustomerController');
 Route::get('/compaign/{id}', 'CustomerController@compaign');
 Route::post('/save-compaign', 'CustomerController@save_compaign')->name('save-compaign');
 Route::get('/', 'AdminController@index');
 Route::get('/dashboard', [AdminController::class, 'dashboard']);
-// Route::get('/view-appointment', [HomeController::class, 'view_appointment']);
-// Route::get('/add-appointment', [HomeController::class, 'add_appointment']);
 Route::get('/profile', [HomeController::class, 'profile']);
 
 Auth::routes();
