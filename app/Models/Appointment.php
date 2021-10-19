@@ -9,10 +9,13 @@ class Appointment extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'appointment_type',
+        'type',
         'comments',
-        'appointment_date',
-        'app_time',
+        'date_time',
         'user_id',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -45,13 +45,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('Appointment.create')}}">
+                        <a class="nav-link" href="{{route('appointments.create')}}">
                             <i><img src="{{asset('images/appointment.png')}}"></i>
                             <span>Add Appointment</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('Appointment.index')}}">
+                        <a class="nav-link" href="{{route('appointments.index')}}">
                             <i><img src="{{asset('images/file.png')}}"></i>
                             <span>View Appointment</span>
                         </a>
