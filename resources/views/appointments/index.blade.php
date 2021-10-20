@@ -41,54 +41,71 @@
         </div>
     </div>
 {{--Start Modal--}}
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  data-backdrop='static' data-keyboard='false'>
+        <div class="modal-dialog" role="document" style="transform: none">
             <div class="modal-content">
-                <div class="modal-body">
-                    <h4>Appointment</h4>
-                    <input hidden name="id" id="id">
-                    <input hidden name="event_id" id="event_id">
+                <form action=""  enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <h4>Appointment</h4>
+                        <input hidden name="id" id="id">
+                        <input hidden name="event_id" id="event_id">
 
-                    Date:
-                    <br />
-                    <input type="date" class="form-control" name="date" id="date">
+                        <div class="row">
+                            <div class="col-md-6">
+                                Date:
+                                <br />
+                                <input type="date" class="form-control" name="date" id="date">
+                            </div>
+                            <div class="col-md-6">
+                                Time:
+                                <br />
+                                <input type="time" class="form-control" name="time" id="time">
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                Type :
+                                <br />
+                                <select name="type" id="type" class="form-control">
+                                    <option value="">Select type</option>
+                                    <option value="Continuing">Continuing</option>
+                                    <option value="Term">Term</option>
+                                    <option value="Contract">Contract</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                Customer:
+                                <br />
+                                <select name="user_id" id="users" class="form-control">
+                                    <option value="">Select Customer</option>
+                                    @foreach($customers as $customer)
+                                        <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                Comments:
+                                <br />
+                                <textarea class="form-control" name="comments" id="comments" cols="10" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-6 mt-2 mb-2">
+                                Upload Audio:
+                                <br />
+                                <input id="newAudio" type="file" name="audio" class="form-control">
+                                <div id="audioDiv">
+                                    <label for="" class="mt-1">Old Audio</label>
+                                    <audio controls id="audio">
+                                        {{--                                <source id="audio" src="uploads/appointment_audio_path/202110201252_abc.mp3" type="audio/mpeg">--}}
+                                        <source id="source" src="" type="audio/mpeg">
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
 
-                    <br />
-                    Time:
-                    <br />
-                    <input type="time" class="form-control" name="time" id="time">
-
-                    <br />
-                    Type :
-                    <br />
-                    <select name="type" id="type" class="form-control">
-                        <option value="">Select type</option>
-                        <option value="Continuing">Continuing</option>
-                        <option value="Term">Term</option>
-                        <option value="Contract">Contract</option>
-                    </select>
-
-                    <br />
-                    Customer:
-                    <br />
-                    <select name="user_id" id="users" class="form-control">
-                        <option value="">Select Customer</option>
-                        @foreach($customers as $customer)
-                            <option value="{{$customer->id}}">{{$customer->name}}</option>
-                        @endforeach
-                    </select>
-
-                    <br />
-                    Comments:
-                    <br />
-                    <textarea class="form-control" name="comments" id="comments" cols="10" rows="3"></textarea>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="button" class="btn btn-primary" id="appointment_update" value="Save">
-                </div>
-            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="document.getElementById('audio').pause();">Close</button>
+                            <input type="button" class="btn btn-primary" id="appointment_update" value="Save">
+                        </div>
+                    </div>
+                </form>
         </div>
     </div>
 {{--End Modal--}}
@@ -113,6 +130,7 @@
                                 title : '{{ ucfirst($appointment->type) .'|'. ucfirst($appointment->user->name) }}',
                                 start : '{{ $appointment->date_time }}',
                                 end: '{{ $appointment->date_time }}',
+                                audio: '{{ $appointment->audio }}',
                             },
                         @endforeach
                 ],
@@ -128,7 +146,19 @@
                         return $(this).val() == user_id;
                     }).prop('selected', true);
 
+                    console.log(calEvent.audio);
 
+
+
+                    if(calEvent.audio){
+                        var audio = document.getElementById('audio');
+                        var source = document.getElementById('source');
+                        source.src = calEvent.audio;
+                        audio.load();
+                        $('#audioDiv').show();
+                    }else{
+                        $('#audioDiv').hide();
+                    }
                     $('#event_id').val(calEvent._id);
                     $('#id').val(calEvent.id);
                     $('#date').val(moment(calEvent.start).format('YYYY-MM-DD'));
@@ -141,6 +171,7 @@
             //Ajax call for updating appointment
             $('#appointment_update').click(function(e) {
                 e.preventDefault();
+                console.log($('#newAudio').val());
                 var data = {
                     _token: '{{ csrf_token() }}',
                     id: $('#id').val(),
@@ -148,6 +179,7 @@
                     time: $('#time').val(),
                     type: $('#type').val(),
                     user_id: $('#users').val(),
+                    audio: $('#newAudio').val()
                 };
                 var url = '{{ route('appointments.update',':id') }}';
                 url = url.replace(':id',$('#id').val());
@@ -172,20 +204,6 @@
 
                         $('#editModal').modal('hide');
                     }
-
-                // $.post(url, data,    ,, function( result ) {
-                //     $('#calendar').fullCalendar('removeEvents', $('#event_id').val());
-                //
-                //     $('#calendar').fullCalendar('renderEvent', {
-                //         id : result.id ,
-                //         user_id : result.user.id ,
-                //         comments : result.comments ,
-                //         title : ucfirst(result.type) + '|' + ucfirst(result.user.name) ,
-                //         start : result.date_time ,
-                //         end: result.date_time ,
-                //     }, true);
-                //
-                //     $('#editModal').modal('hide');
                 });
             });
 

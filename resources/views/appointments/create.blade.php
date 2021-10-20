@@ -21,7 +21,7 @@
                                 Add Appointment
                             </div>
                             <div class="card-body">
-                                <form method="post" action="{{route('appointments.store')}}">
+                                <form method="post" action="{{route('appointments.store')}}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
@@ -44,11 +44,11 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="mb-2 formlabel">Appointment type</label>
-                                            <select class="form-control @error('type') is-invalid @enderror" value="{{ old('type') }}" name="type" id="appointment_type" required>
+                                            <select class="form-control @error('type') is-invalid @enderror" name="type" id="appointment_type" required>
                                                 <option value="">Select type</option>
-                                                <option value="Continuing">Continuing</option>
-                                                <option value="Term">Term</option>
-                                                <option value="Contract">Contract</option>
+                                                <option value="Continuing" {{ old('type') == 'Continuing' ? 'selected' : '' }}>Continuing</option>
+                                                <option value="Term" {{ old('type') == 'Term' ? 'selected' : '' }}>Term</option>
+                                                <option value="Contract" {{ old('type') == 'Contract' ? 'selected' : '' }}>Contract</option>
                                             </select>
                                             @error('type')
                                                 <span class="invalid-feedback" role="alert">
@@ -59,13 +59,23 @@
 
                                         <div class="form-group col-md-4">
                                             <label class="mb-2 formlabel">Customer</label>
-                                            <select class="form-control @error('user_id') is-invalid @enderror" value="{{ old('user_id') }}" name="user_id" required>
+                                            <select class="form-control @error('user_id') is-invalid @enderror"  name="user_id" required>
                                                 <option>Select Customer</option>
                                                 @foreach($customers as $customer)
-                                                    <option value="{{$customer->id}}">{{$customer->name}}</option>
+                                                    <option value="{{$customer->id}}" {{ old('user_id') == $customer->id ? 'selected' : '' }}>{{$customer->name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('user_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="mb-2 formlabel">Upload Audio File</label>
+                                            <input type="file" name="audio" class="form-control @error('audio') is-invalid @enderror" value="{{ old('audio') }}" id="audio" required>
+                                            @error('audio')
                                             <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
