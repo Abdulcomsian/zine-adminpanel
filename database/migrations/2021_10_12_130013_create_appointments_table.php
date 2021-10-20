@@ -17,6 +17,7 @@ class CreateAppointmentsTable extends Migration
             $table->id();
             $table->string('type')->nullable();
             $table->longText('comments')->nullable();
+            $table->longText('user_review')->nullable();
             $table->dateTime('date_time')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
