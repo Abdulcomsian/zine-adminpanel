@@ -16,6 +16,7 @@ class Appointment extends Model
         'user_review',
         'date_time',
         'user_id',
+        'audio',
     ];
 
     public function user(){

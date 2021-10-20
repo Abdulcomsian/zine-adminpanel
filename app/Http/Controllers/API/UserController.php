@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Utils\HelperFunctions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -39,27 +40,15 @@ class UserController extends BaseController
     public function updateProfileImage(Request $request)
     {
         $request->validate([
-            'image' => 'required|file|image|mimes:png,jpg|max:2000',
+            'image' => 'required|file|image|mimes:png,webp,jpg|max:2000',
         ]);
 
         try {
             $user = auth()->user();
-            $path = public_path('profile_images');
-            File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
+            $filePath = HelperFunctions::profileImagePath();
+            $user['image'] = HelperFunctions::saveFile($user->image,$request->file('image'),$filePath);
 
-            if($user->image)
-            {
-                @unlink($user->image);
-            }
-
-            $image = $request->file('image');
-            $filename = $user->name . date('_YmdHi') . $image->getClientOriginalName();
-            $filepath = $path.'/'.$filename;
-            $image->move($path, $filename);
-
-            $user['image'] = 'profile_images/'.$filename;
             $user->save();
-
             return $this->sendResponse(null,'Profile Image Updated Successfully!');
         } catch (\Exception $e) {
             return $this->sendError('Something went wrong,try again.');

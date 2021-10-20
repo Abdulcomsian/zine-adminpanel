@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Appointment;
+use App\Utils\HelperFunctions;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,7 @@ class AppointmentController extends Controller
             return back();
         }
     }
+
     public function create()
     {
         try {
@@ -38,10 +40,11 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'type' => 'required',
-           'user_id' => 'required',
-           'date' => 'required',
-           'time' => 'required',
+            'type' => 'required',
+            'user_id' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'audio' =>'nullable|mimes:audio/mpeg,mpga,mp3,wav,aac'
         ],[
             'user_id.required' => 'Please select any user'
         ]);
@@ -50,6 +53,8 @@ class AppointmentController extends Controller
             $date = $request['date'];
             $time = $request['time'];
             $input['date_time'] = date('Y-m-d H:i:s', strtotime("$date $time"));
+            $input['audio'] = HelperFunctions::saveFile(null,$request->file('audio'),HelperFunctions::appointmentAudioPath());
+
             Appointment::create($input);
             toastr()->success('Appointment created successfully');
             return redirect('appointments');
