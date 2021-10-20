@@ -27,14 +27,17 @@ class AuthController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
+        try {
+            $input = $request->all();
+            $input['password'] = bcrypt($input['password']);
+            $user = User::create($input);
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            $success['name'] =  $user->name;
 
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-        $success['name'] =  $user->name;
-
-        return $this->sendResponse($success, 'User register successfully.');
+            return $this->sendResponse($success, 'User register successfully.');
+        }catch (\Exception $exception){
+            return $this->sendError('Something went wrong,try again.');
+        }
     }
 
     /**
@@ -44,6 +47,15 @@ class AuthController extends BaseController
      */
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'exists:users', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
             $user['token'] =  $user->createToken('MyApp')->plainTextToken;
