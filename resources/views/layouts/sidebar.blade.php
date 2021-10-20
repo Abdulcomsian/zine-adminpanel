@@ -27,7 +27,7 @@
             <div class="nav-wrapper">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="dashboard">
+                        <a class="nav-link active" href="{{url('dashboard')}}">
                             <i><img src="{{asset('images/dash-icon.png')}}"></i>
                             <span>Dashboard</span>
                         </a>
