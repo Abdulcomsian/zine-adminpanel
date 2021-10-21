@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Api\BaseController;
+use App\Http\Controllers\API\BaseController;
 use App\Utils\HelperFunctions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
