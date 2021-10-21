@@ -49,7 +49,7 @@ class UserController extends BaseController
             $user['image'] = HelperFunctions::saveFile($user->image,$request->file('image'),$filePath);
 
             $user->save();
-            return $this->sendResponse(null,'Profile Image Updated Successfully!');
+            return $this->sendResponse($user['image'],'Profile Image Updated Successfully!');
         } catch (\Exception $e) {
             return $this->sendError('Something went wrong,try again.');
         }
