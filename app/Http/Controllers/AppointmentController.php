@@ -53,13 +53,14 @@ class AppointmentController extends Controller
             $date = $request['date'];
             $time = $request['time'];
             $input['date_time'] = date('Y-m-d H:i:s', strtotime("$date $time"));
-            $input['audio'] = HelperFunctions::saveFile(null,$request->file('audio'),HelperFunctions::appointmentAudioPath());
+            if ($request->file('audio')){
+                $input['audio'] = HelperFunctions::saveFile(null,$request->file('audio'),HelperFunctions::appointmentAudioPath());
+            }
 
             Appointment::create($input);
             toastr()->success('Appointment created successfully');
             return redirect('appointments');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             toastr()->error('Something went wrong, try again');
             return back();
         }
@@ -68,14 +69,19 @@ class AppointmentController extends Controller
     public function update(Request $request)
     {
         try {
+            $appointment = Appointment::with('user')->findOrFail($request->id);
+
             $input = $request->except('_token');
             $date = $request['date'];
             $time = $request['time'];
             $input['date_time'] = date('Y-m-d H:i:s', strtotime("$date $time"));
-            $appointment = Appointment::with('user')->findOrFail($request->id);
+            if ($request->file('audio')) {
+                $input['audio'] = HelperFunctions::saveFile($appointment->audio, $request->file('audio'), HelperFunctions::appointmentAudioPath());
+            }
             $appointment->update($input);
 
-            return response()->json($appointment);
+            return back();
+
         }catch (\Exception $exception){
             return response()->json(['status' => false]);
         }
