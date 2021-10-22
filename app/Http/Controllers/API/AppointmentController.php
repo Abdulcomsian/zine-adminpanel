@@ -7,15 +7,13 @@ use App\Models\Appointment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Self_;
 
 class AppointmentController extends BaseController
 {
     public function appointments(){
         try {
-            $appointments = auth()->user()->appointments()
-                ->select('id','date_time','type')
-                ->whereBetween('date_time',[Carbon::now()->subYear(),Carbon::now()->addYear()])
-                ->get();
+            $appointments = self::appointmentBetweenDate(Carbon::now()->subYear(),Carbon::now()->addYear())->get();
             return $this->sendResponse($appointments);
         }catch (\Exception $exception){
             return $this->sendError('Something went wrong,try again.');
@@ -42,7 +40,6 @@ class AppointmentController extends BaseController
            'id' => 'required'
         ]);
         try {
-//            return Appointment::with('ratings')->find($request->id);
             $appointment = Appointment::find($request->id);
 
             if (!empty($appointment) && $appointment->timesRated() == 0 ){
@@ -54,6 +51,32 @@ class AppointmentController extends BaseController
             }else{
                 return $this->sendError('Rating denied.');
             }
+        }catch (\Exception $exception){
+            return $this->sendError('Something went wrong,try again.');
+        }
+    }
+
+    private function appointmentBetweenDate($fromDate,$toDate){
+        try {
+            return auth()->user()->appointments()
+                ->select('id','date_time','type')
+                ->whereBetween('date_time',[$fromDate,$toDate]);
+        }catch (\Exception $exception){
+            return $this->sendError('Something went wrong,try again.');
+        }
+    }
+
+    public function getAppointmentHistory(){
+        try {
+            $weeklyAppointments = self::appointmentBetweenDate(Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek())->count();
+            $monthlyAppointments = self::appointmentBetweenDate(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth())->count();
+            $toDateAppointments = auth()->user()->appointments()->count();
+            $data = [
+                'weeklyAppointments' => $weeklyAppointments,
+                'monthlyAppointments' => $monthlyAppointments,
+                'toDateAppointments' => $toDateAppointments,
+            ];
+            return $this->sendResponse($data,null );
         }catch (\Exception $exception){
             return $this->sendError('Something went wrong,try again.');
         }
