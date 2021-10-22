@@ -66,7 +66,7 @@ class AppointmentController extends BaseController
         }
     }
 
-    public function getAppointmentHistory(){
+    public function a(){
         try {
             $weeklyAppointments = self::appointmentBetweenDate(Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek())->count();
             $monthlyAppointments = self::appointmentBetweenDate(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth())->count();
