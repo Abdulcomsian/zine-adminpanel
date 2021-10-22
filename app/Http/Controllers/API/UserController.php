@@ -17,7 +17,11 @@ class UserController extends BaseController
             'password' => ['required', 'string', 'min:8'],
             'phone_number' => ['required'],
         ]);
-
+        if($request->has('password')){
+            $validator = Validator::make($request->all(), [
+                'password' => ['required', 'string', 'min:8'],
+            ]);
+        }
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
