@@ -29,8 +29,11 @@ class UserController extends BaseController
         try {
             $user = auth()->user();
 
+            if($request->has('password')) {
+                $user['password'] = bcrypt($request->password);
+            }
+
             $user['name'] = $request->name;
-            $user['password'] = bcrypt($request->password);
             $user['phone_number'] = $request->phone_number;
 
             $user->save();
