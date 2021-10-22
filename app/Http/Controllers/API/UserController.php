@@ -17,7 +17,11 @@ class UserController extends BaseController
             'password' => ['required', 'string', 'min:8'],
             'phone_number' => ['required'],
         ]);
-
+        if($request->has('password')){
+            $validator = Validator::make($request->all(), [
+                'password' => ['required', 'string', 'min:8'],
+            ]);
+        }
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
@@ -25,8 +29,11 @@ class UserController extends BaseController
         try {
             $user = auth()->user();
 
+            if($request->has('password')) {
+                $user['password'] = bcrypt($request->password);
+            }
+
             $user['name'] = $request->name;
-            $user['password'] = bcrypt($request->password);
             $user['phone_number'] = $request->phone_number;
 
             $user->save();
