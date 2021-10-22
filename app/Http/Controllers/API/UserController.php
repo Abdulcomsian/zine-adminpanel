@@ -14,7 +14,6 @@ class UserController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
             'phone_number' => ['required'],
         ]);
         if($request->has('password')){
