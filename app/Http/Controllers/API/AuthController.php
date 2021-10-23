@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController
@@ -29,8 +30,10 @@ class AuthController extends BaseController
         }
         try {
             $input = $request->all();
-            $input['password'] = bcrypt($input['password']);
-            $user = User::create($input);
+            $input['role'] = "customer";
+            $input['email_verified_at'] = date('Y-m-d h:i:s');
+            $input['password'] = Hash::make($request->password);
+a            $user = User::create($input);
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['name'] =  $user->name;
 
