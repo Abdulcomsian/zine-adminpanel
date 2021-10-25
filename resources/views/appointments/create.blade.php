@@ -46,9 +46,9 @@
                                             <label class="mb-2 formlabel">Appointment type</label>
                                             <select class="form-control @error('type') is-invalid @enderror" name="type" id="appointment_type" required>
                                                 <option value="">Select type</option>
-                                                <option value="Continuing" {{ old('type') == 'Continuing' ? 'selected' : '' }}>Continuing</option>
-                                                <option value="Term" {{ old('type') == 'Term' ? 'selected' : '' }}>Term</option>
-                                                <option value="Contract" {{ old('type') == 'Contract' ? 'selected' : '' }}>Contract</option>
+                                                <option value="Buyer" {{ old('type') == 'Buyer' ? 'selected' : '' }}>Buyer</option>
+                                                <option value="Seller" {{ old('type') == 'Seller' ? 'selected' : '' }}>Seller</option>
+                                                <option value="Both" {{ old('type') == 'Both' ? 'selected' : '' }}>Both</option>
                                             </select>
                                             @error('type')
                                                 <span class="invalid-feedback" role="alert">
@@ -58,9 +58,9 @@
                                         </div>
 
                                         <div class="form-group col-md-4">
-                                            <label class="mb-2 formlabel">Customer</label>
+                                            <label class="mb-2 formlabel">Client</label>
                                             <select class="form-control @error('user_id') is-invalid @enderror"  name="user_id" required>
-                                                <option>Select Customer</option>
+                                                <option>Select Client</option>
                                                 @foreach($customers as $customer)
                                                     <option value="{{$customer->id}}" {{ old('user_id') == $customer->id ? 'selected' : '' }}>{{$customer->name}}</option>
                                                 @endforeach
@@ -71,7 +71,15 @@
                                                 </span>
                                             @enderror
                                         </div>
-
+                                        <div class="form-group col-md-4">
+                                            <label class="mb-2 formlabel">Contact #</label>
+                                            <input type="text" name="contact" class="form-control @error('contact') is-invalid @enderror" value="{{ old('contact') }}" id="contact" >
+                                            @error('contact')
+                                            <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                         <div class="form-group col-md-4">
                                             <label class="mb-2 formlabel">Upload Audio File</label>
                                             <input type="file" name="audio" class="form-control @error('audio') is-invalid @enderror" value="{{ old('audio') }}" id="audio" required>
@@ -82,7 +90,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-12">
                                             <label class="mb-2 formlabel">Commments</label>
                                             <textarea name="comments" class="form-control @error('comments') is-invalid @enderror" required> {{ old('comments') }}</textarea>
                                             @error('comments')

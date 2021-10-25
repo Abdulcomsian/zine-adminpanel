@@ -17,6 +17,7 @@ class Appointment extends Model
         'date_time',
         'user_id',
         'audio',
+        'contact',
     ];
 
     public function user(){
