@@ -30,11 +30,11 @@ Zine Collective | International Marketing
                 <div class="form-row">
                   <div class="form-group col-md-12">
                     <label class="mb-2 formlabel">Enter Compaign link</label>
-                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter Compaign link" required>
+                    <input type="text" class="form-control" id="link" name="link" placeholder="Enter Compaign link" required value="{{$user->compaign_link ?? ''}}">
                   </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-add">Add Compaign</button>
+                <button type="submit" class="btn btn-primary btn-add">Update Compaign</button>
               </form>
             </div>
           </div>

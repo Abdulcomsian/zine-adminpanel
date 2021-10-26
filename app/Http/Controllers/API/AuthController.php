@@ -33,7 +33,7 @@ class AuthController extends BaseController
             $input['role'] = "customer";
             $input['email_verified_at'] = date('Y-m-d h:i:s');
             $input['password'] = Hash::make($request->password);
-a            $user = User::create($input);
+            $user = User::create($input);
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['name'] =  $user->name;
 

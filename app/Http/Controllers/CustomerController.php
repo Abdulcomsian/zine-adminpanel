@@ -52,10 +52,12 @@ class CustomerController extends Controller
             return back();
         }
     }
+
     public function compaign($id)
     {
         try {
-            return view('customers.compaign', compact('id'));
+            $user = User::where('id',$id)->first('compaign_link');
+            return view('customers.compaign', compact('id','user'));
         } catch (\Exception $exception) {
             toastr()->error('Something went wrong, try again');
             return back();

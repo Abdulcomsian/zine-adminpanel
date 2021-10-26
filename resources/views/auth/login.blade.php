@@ -67,7 +67,6 @@
         </div>
     </div>
 </div> -->
-
 <!doctype html>
 <html class="no-js h-100" lang="en">
 
@@ -97,7 +96,7 @@
                         <span class="login100-form-title pb-4">
                             Login to continue
                         </span>
-                        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <div class="mb-4 wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                             <input id="email" type="email" class="form-control input100 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
