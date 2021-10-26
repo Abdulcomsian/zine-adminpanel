@@ -63,7 +63,7 @@ class AuthController extends BaseController
             $user = Auth::user();
             $user->fcm_token = $request->fcm_token;
             $user->save();
-            
+
             $user['token'] =  $user->createToken('MyApp')->plainTextToken;
 
             return $this->sendResponse($user, 'User login successfully.');
