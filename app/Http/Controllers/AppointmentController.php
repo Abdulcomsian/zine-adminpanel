@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Appointment;
+use App\Notifications\AppointmentCreated;
 use App\Utils\HelperFunctions;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -57,7 +58,8 @@ class AppointmentController extends Controller
                 $input['audio'] = HelperFunctions::saveFile(null,$request->file('audio'),HelperFunctions::appointmentAudioPath());
             }
 
-            Appointment::create($input);
+            $appointment = Appointment::create($input);
+            $appointment->user->notify(new AppointmentCreated($appointment));
             toastr()->success('Appointment created successfully');
             return redirect('appointments');
         } catch (\Exception $exception) {

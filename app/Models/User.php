@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'compaign_link',
+        'fcm_token',
     ];
 
     /**
@@ -46,6 +47,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function routeNotificationForFcm()
+    {
+        return $this->fcm_token;
+    }
 
     public function appointments(){
         return $this->hasMany(Appointment::class);
