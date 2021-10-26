@@ -11,6 +11,15 @@ use phpDocumentor\Reflection\Types\Self_;
 
 class AppointmentController extends BaseController
 {
+    public function compaignLink(){
+        try {
+            $compaignLink = auth()->user()->compaign_link;
+            return $this->sendResponse($compaignLink);
+        }catch (\Exception $exception){
+            return $this->sendError('Something went wrong,try again.');
+        }
+    }
+
     public function appointments(){
         try {
             $appointments = self::appointmentBetweenDate(Carbon::now()->subYear(),Carbon::now()->addYear())->get();

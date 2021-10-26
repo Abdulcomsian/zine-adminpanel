@@ -18,6 +18,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('compaign-link','API\AppointmentController@compaignLink');
     Route::get('appointments','API\AppointmentController@appointments');
     Route::get('appointment/{id}','API\AppointmentController@getAppointmentById');
     Route::post('appointment/rating','API\AppointmentController@rating');

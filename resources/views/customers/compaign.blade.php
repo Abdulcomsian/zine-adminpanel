@@ -34,7 +34,7 @@ Zine Collective | International Marketing
                   </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-add">Update Compaign</button>
+                <button type="submit" class="btn btn-primary btn-add">Updateapi Compaign</button>
               </form>
             </div>
           </div>
