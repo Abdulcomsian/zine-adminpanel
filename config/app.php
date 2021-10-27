@@ -176,8 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
         willvincent\Rateable\RateableServiceProvider::class,
-
-
+        Kreait\Laravel\Firebase\ServiceProvider::class
     ],
 
     /*
