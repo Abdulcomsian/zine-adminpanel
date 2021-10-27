@@ -59,10 +59,14 @@ class AppointmentController extends Controller
             }
 
             $appointment = Appointment::create($input);
-            $appointment->user->notify(new AppointmentCreated($appointment));
+            if($appointment->user->fcm_token){
+                dump('Here in if fcm token');
+                $appointment->user->notify(new AppointmentCreated($appointment));
+            }
             toastr()->success('Appointment created successfully');
             return redirect('appointments');
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             toastr()->error('Something went wrong, try again');
             return back();
         }
