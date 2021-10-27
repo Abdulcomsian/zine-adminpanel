@@ -61,8 +61,10 @@ class AuthController extends BaseController
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
-            if ($request->has('fcm_token')){
+            if ($request->filled('fcm_token')){
                 $user->fcm_token = $request->fcm_token;
+            }else{
+                $user->fcm_token = null;
             }
             $user->save();
 
