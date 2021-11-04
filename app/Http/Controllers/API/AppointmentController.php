@@ -65,7 +65,7 @@ class AppointmentController extends BaseController
             return $this->sendError('Something went wrong,try again.');
         }
     }
-
+    
     public function getAppointmentHistory(){
         try {
             $weeklyAppointments = self::appointmentBetweenDate(Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek())->count();
@@ -76,6 +76,14 @@ class AppointmentController extends BaseController
                 'monthlyAppointments' => $monthlyAppointments,
                 'toDateAppointments' => $toDateAppointments,
             ];
+            return $this->sendResponse($data,null );
+        }catch (\Exception $exception){
+            return $this->sendError('Something went wrong,try again.');
+        }
+    }
+    public function callapi(Request $request){
+        try {
+            dd($request->all());
             return $this->sendResponse($data,null );
         }catch (\Exception $exception){
             return $this->sendError('Something went wrong,try again.');

@@ -24,5 +24,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('appointment-history','API\AppointmentController@getAppointmentHistory');
     Route::post('update/profile','API\UserController@updateProfile');
     Route::post('update/profile/image','API\UserController@updateProfileImage');
+    Route::post('call','API\AppointmentController@callapi');
 });
 
