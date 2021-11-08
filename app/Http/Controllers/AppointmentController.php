@@ -52,6 +52,8 @@ class AppointmentController extends Controller
             $input = $request->except('_token','appointment_date','app_time');
             $date = $request['date'];
             $time = $request['time'];
+            $input['comments']= str_replace(array("\n", "\r"), ' ', $request['comments']);
+            
             $input['contact'] = $request['contact'];
           
             $input['date_time'] = date('Y-m-d H:i:s', strtotime("$date $time"));
