@@ -60,6 +60,7 @@ Zine Collective | International Marketing
                   <th scope="col">SR#</th>
                   <th scope="col">Customer Name</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Appointments</th>
                   <th scope="col">Contact</th>
                   <th scope="col"></th>
                 </tr>
@@ -70,8 +71,8 @@ Zine Collective | International Marketing
                   <th scope="row">{{$loop->index+1}}</th>
                   <td>{{$customer->name}}</td>
                   <td>{{$customer->email}}</td>
-                  <td>{{$customer->phone_number}}</td>
-
+                    <td>{{$customer->appointments_count}}</td>
+                    <td>{{$customer->phone_number}}</td>
                   <td><a href="{{url('compaign',$customer->id)}}"><i class="fa fa-plus" aria-hidden="true"></i></a></td>
                 </tr>
                 @endforeach
