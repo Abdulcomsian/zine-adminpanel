@@ -196,7 +196,9 @@
       <workItem from="1635166516237" duration="20000" />
       <workItem from="1635246380325" duration="5503000" />
       <workItem from="1635313221058" duration="1957000" />
-      <workItem from="1635317259975" duration="3285000" />
+      <workItem from="1635317259975" duration="4933000" />
+      <workItem from="1635342192999" duration="308000" />
+      <workItem from="1635395956753" duration="5195000" />
     </task>
     <servers />
   </component>
@@ -220,10 +222,10 @@
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state x="477" y="304" key="NewPhpFileDialog/0.40.1280.680@0.40.1280.680" timestamp="1634215765356" />
-    <state x="346" y="115" width="589" height="582" key="find.popup" timestamp="1634553255239">
+    <state x="346" y="100" width="589" height="620" key="find.popup" timestamp="1635403442038">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
-    <state x="346" y="115" width="589" height="582" key="find.popup/0.40.1280.680@0.40.1280.680" timestamp="1634553255239" />
+    <state x="346" y="100" width="589" height="620" key="find.popup/0.40.1280.680@0.40.1280.680" timestamp="1635403442038" />
     <state x="297" y="171" key="run.anything.popup" timestamp="1634324006830">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
