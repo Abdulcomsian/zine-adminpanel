@@ -15,7 +15,9 @@ class CustomerController extends Controller
     public function index()
     {
         try {
-            $customers = User::where('role', 'customer')->get();
+            $customers = User::where('role', 'customer')
+                ->withCount('appointments')
+                ->get();
             return view('customers.view_customer', compact('customers'));
         } catch (\Exception $exception) {
             toastr()->error('Something went wrong, try again');
