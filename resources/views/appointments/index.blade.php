@@ -74,16 +74,16 @@
                                 <br/>
                                 <select name="type" id="type" class="form-control">
                                     <option value="">Select type</option>
-                                    <option value="Continuing">Continuing</option>
-                                    <option value="Term">Term</option>
-                                    <option value="Contract">Contract</option>
+                                    <option value="Buyer">Buyer</option>
+                                    <option value="Seller">Seller</option>
+                                    <option value="Both">Both</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mt-2">
-                                Customer:
+                                Client:
                                 <br/>
                                 <select name="user_id" id="users" class="form-control">
-                                    <option value="">Select Customer</option>
+                                    <option value="">Select Client</option>
                                     @foreach($customers as $customer)
                                         <option value="{{$customer->id}}">{{$customer->name}}</option>
                                     @endforeach
@@ -120,7 +120,6 @@
             </div>
         </div>
         {{--End Modal--}}
-
         @endsection
         @section('script')
             <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
@@ -137,11 +136,12 @@
                                 {
                                     id: '{{ $appointment->id }}',
                                     user_id: '{{ $appointment->user_id }}',
-                                    comments: '{{ $appointment->comments }}',
+                                    comments:  `{!! $appointment->comments !!}`,
                                     title: '{{ ucfirst($appointment->type) .'|'. ucfirst($appointment->user->name) }}',
                                     start: '{{ $appointment->date_time }}',
                                     end: '{{ $appointment->date_time }}',
                                     audio: '{{ $appointment->audio }}',
+                                    contact: '{{ $appointment->contact }}',
                                 },
                             @endforeach
                         ],
