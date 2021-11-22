@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                         </div>
-                   
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"
                                     onclick="document.getElementById('audio').pause();">Close
@@ -120,7 +120,6 @@
             </div>
         </div>
         {{--End Modal--}}
-
         @endsection
         @section('script')
             <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
@@ -137,7 +136,7 @@
                                 {
                                     id: '{{ $appointment->id }}',
                                     user_id: '{{ $appointment->user_id }}',
-                                    comments: '{{ $appointment->comments }}',
+                                    comments:  `{!! $appointment->comments !!}`,
                                     title: '{{ ucfirst($appointment->type) .'|'. ucfirst($appointment->user->name) }}',
                                     start: '{{ $appointment->date_time }}',
                                     end: '{{ $appointment->date_time }}',
