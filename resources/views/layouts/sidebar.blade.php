@@ -35,13 +35,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('customer.create')}}">
                             <i><img src="{{asset('images/16061-[Converted].png')}}"></i>
-                            <span>Add Customer</span>
+                            <span>Add Client</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('customer.index')}}">
                             <i><img src="{{asset('images/customer.png')}}"></i>
-                            <span>View Customer</span>
+                            <span>View Client</span>
                         </a>
                     </li>
                     <li class="nav-item">

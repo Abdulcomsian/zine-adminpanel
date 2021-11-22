@@ -16,7 +16,7 @@ Zine Collective | International Marketing
       <div class="clinic-s">
         <div class="row py-4 container-fluid ">
           <div class="col-md-12">
-            <div class="page-heading">View Customer </div>
+            <div class="page-heading">View Client </div>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@ Zine Collective | International Marketing
               <thead class="thead-dak">
                 <tr>
                   <th scope="col">SR#</th>
-                  <th scope="col">Customer Name</th>
+                  <th scope="col">Client Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Appointments</th>
                   <th scope="col">Contact</th>
