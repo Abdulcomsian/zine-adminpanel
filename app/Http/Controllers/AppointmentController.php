@@ -34,6 +34,7 @@ class AppointmentController extends Controller
             $customers = User::where('role', 'customer')->get();
             return view('appointments.create', ['customers' => $customers]);
         } catch (\Exception $exception) {
+              dd($exception->getMessage());
             toastr()->error('Something went wrong, try again');
             return back();
         }
