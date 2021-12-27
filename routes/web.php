@@ -19,6 +19,9 @@ use PhpParser\Node\Expr\FuncCall;
 
 Route::resource('appointments', 'AppointmentController');
 Route::resource('/customer', 'CustomerController');
+Route::resource('/onboarding', 'OnboardingController');
+Route::get('/onboarding-video', 'OnboardingController@onboarding_video');
+Route::post('/onboarding-video-save', 'OnboardingController@onboarding_save_video')->name('onboarding.storevideo');
 Route::get('/compaign/{id}', 'CustomerController@compaign');
 Route::post('/save-compaign', 'CustomerController@save_compaign')->name('save-compaign');
 Route::get('/', 'AdminController@index');
