@@ -57,6 +57,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{url('onboarding')}}">
+                            <i class="fa fa-link"></i>
+                            <span>Onboarding Form Link</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('onboarding-video')}}">
+                            <i class="fa fa-video"></i>
+                            <span>Onboarding Videos Link</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link " href="{{ url('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i><img src="{{asset('images/logout-icon.png')}}"></i>
                             <span>Log out</span>
