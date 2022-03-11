@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
@@ -74,6 +75,24 @@ class CustomerController extends Controller
             toastr()->success('Compaign Link save successfully!!!');
             return back();
         } catch (\Exception $exception) {
+            toastr()->error('Something went wrong, try again');
+            return back();
+        }
+    }
+
+    public function destroy($id) {
+        try {
+            $user = User::find($id);
+            if ($user->appointments->count() > 0){
+                $user->appointments()->delete();
+            }
+            if(isset($user->image) && File::exists($user->image)) {
+                File::delete($user->image);
+            }
+            $user->delete();
+            toastr()->success('User deleted successfully!!!');
+            return back();
+        }catch (\Exception $exception){
             toastr()->error('Something went wrong, try again');
             return back();
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
 use App\Models\Appointment;
+use App\Models\Rating;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,18 +50,28 @@ class AppointmentController extends BaseController
            'id' => 'required'
         ]);
         try {
-            $appointment = Appointment::find($request->id);
+            $rating = new Rating;
+            
+            $rating['rating'] = $request->rate;
+            $rating['rateable_id'] = $request->id;
+            $rating['rateable_type'] = $request->user_review;
+            
+           
+$rating->save(); 
+return $this->sendResponse(null,'Rating added successfully!' );
+//             $appointment = Appointment::find($request->id);
+//             if (!empty($appointment) && $appointment->timesRated() == 0 ){
+// //return $request->all();exit;
+//                 $appointment->rate= $request->rate;// return "here";exit;
+//                 $appointment->user_review = $request->user_review; //return "here";exit;
+//                 $appointment->save(); return "here";exit;
 
-            if (!empty($appointment) && $appointment->timesRated() == 0 ){
-                $appointment->rate($request->rate);
-                $appointment->user_review = $request->user_review;
-                $appointment->save();
-
-                return $this->sendResponse(null,'Rating added successfully!' );
-            }else{
-                return $this->sendError('Rating denied.');
-            }
+//                 return $this->sendResponse(null,'Rating added successfully!' );
+//             }else{
+//                 return $this->sendError('Rating denied.');
+            // }
         }catch (\Exception $exception){
+            return $exception->getMessage();
             return $this->sendError('Something went wrong,try again.');
         }
     }
